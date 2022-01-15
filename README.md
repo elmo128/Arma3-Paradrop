@@ -31,7 +31,7 @@ parameters:
 10,jumpdistancetime:		DEFAULT: 0.15						the time between the parajumpers when leaving the plane [sec.].  
 11,jumpheight:				DEFAULT: 150						height the dropship will fly when dropping passengers.[m]
 12,jumpearly:				DEFAULT: 0							correction factor to adjust the location where cargo is dropped[m]. might need adjustment, if jumpheight or jumpdistancetime was modified to make the paratroopers still beeing dropped over the destination.
-13,_forceopenParachute	DEFAULT: -1							-1: AI decides when to open (only works with backpack paracutes), 0 <= x <= 20 time to open parachute after leaving dropship, >20 height parachute is forced open. MUST BE SET WHEN USING CARGO PARACHUTE !
+13,_forceopenParachute	DEFAULT: -1								-1: AI decides when to open (only works with backpack paracutes), 0 <= x <= 20 time to open parachute after leaving dropship, >20 height parachute is forced open. MUST BE SET WHEN USING CARGO PARACHUTE !
 
 return of main. will be saved to a namespace on request
 [_cargogroup, _dropship, _dropship_group, _garbage];
