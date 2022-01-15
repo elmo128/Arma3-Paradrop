@@ -83,7 +83,7 @@
 #define INVINCIBILITY_AFTER_JUMP 3;			// time in [s]
 #define GARBAGE_BIN "Land_PencilBlue_F"		// object for internal use. will be despawned with garbage
 #define GARBAGE_BIN_VAR_NAME "Junk11"			
-#define ENABLEDISTANCE_VTOL 1500;			//enable VTOL before reaching drop locataion, helps AI to reduce speed [m] will be enabled again, after paradrop is completed
+#define ENABLEDISTANCE_VTOL 1500			//enable VTOL before reaching drop locataion, helps AI to reduce speed [m] will be enabled again, after paradrop is completed
 
 
 // opens most doors and ramps of a vehicle
@@ -546,7 +546,7 @@ paradrop =
 		private _DS2D = getPos _dropship;
 		_DS2D set[2, 0];
 
-		if (((_WP2D distance _DS2D) < DISABLEDISTANCE_VTOL) && (!scriptdone _forceVTOLdown) && (_onboard == true)) then
+		if (((_WP2D distance _DS2D) < ENABLEDISTANCE_VTOL) && (!scriptdone _forceVTOLdown) && (_onboard == true)) then
 		{
 			terminate _forceVTOLdown;
 		};
