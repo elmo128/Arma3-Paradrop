@@ -51,8 +51,8 @@
 *   NOTE: the higher the processing power, the more accurate the drop location.
 *   MINIMUM WORKING call:  [destination] execVM "e_paradrop.sqf"; // eg. [player] execVM "e_paradrop.sqf";
 *   MINIMUM RECOMMENDED call: [destination, dropshipSpawnlocation, dropshipDESpawnlocation] execVM "e_paradrop.sqf";
-*   MAXIMUM PARAMETERS call: [destination, dropshipSpawnlocation, dropshipDESpawnlocation, side,vehicleType,skillmin,skillmax,variable,nojump,parachutetype,jumpdistancetime,jumpheight,jumpearly] execVM "e_paradrop.sqf";
-*   MAXIMUM PARAMETERS call: ["mrk15", [1,1,1], [1,1,1], east,"B_T_VTOL_01_infantry_F",0.1,0.9,[],scriptNull,"O_Parachute_02_F",0.15,150,0] execVM "e_paradrop.sqf";
+*   MAXIMUM PARAMETERS call: [destination, dropshipSpawnlocation, dropshipDESpawnlocation, side,vehicleType,skillmin,skillmax,variable,nojump,parachutetype,jumpdistancetime,jumpheight,jumpearly,_forceopenParachute] execVM "e_paradrop.sqf";
+*   MAXIMUM PARAMETERS call: ["mrk15", [1,1,1], [1,1,1], east,"B_T_VTOL_01_infantry_F",0.1,0.9,[],scriptNull,"O_Parachute_02_F",0.15,150,0,-1] execVM "e_paradrop.sqf";
 */
 
 // default defines can be changed using parameters, no need to change them here!
