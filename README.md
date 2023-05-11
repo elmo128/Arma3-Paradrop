@@ -1,5 +1,7 @@
 # Arma-3-Paradrop
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 flexible AI paradrop script.
 might need tweaking.
 
