@@ -3,7 +3,7 @@
 *
 *	MIT License
 *
-*	Copyright(c) 2022 - 2023 elmo128 (60213508 + elmo128@users.noreply.github.com / elmo128@protonmail.com)
+*	Copyright(c) 2022 - 2023 elmo128 (elmo128@protonmail.com)
 *
 *	Permission is hereby granted, free of charge, to any person obtaining a copy
 *	of this softwareand associated documentation files(the "Software"), to deal

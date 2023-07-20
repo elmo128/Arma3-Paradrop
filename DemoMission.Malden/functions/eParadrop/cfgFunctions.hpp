@@ -12,7 +12,6 @@ class eParadrop
 		class DoorsClose {};
 		class DoorsOpen {};
 		class garbageCollector {};
-		class garbageCollectorCaller {};
 		class getInputLocation {};
 		class ParachuteForceOpen {};
 		class ParachuteNoBackpack {};
@@ -20,5 +19,6 @@ class eParadrop
 		class reattachBackpack {};
 		class VTOLforceDown {};
 		class VTOLGetCapabilities {};
+		class remMoveinCargo {};
 	};
 };

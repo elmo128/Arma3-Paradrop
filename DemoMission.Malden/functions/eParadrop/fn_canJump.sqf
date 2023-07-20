@@ -1,5 +1,5 @@
 // Copyright(c) 2022 - 2023 elmo128 (elmo128@protonmail.com)
-// check if the jump condition is met. access to objects, script handlers, variables in namespaces
+// check if the jump condition is met. access to objects, script handles, variables in namespaces
 #include "defines.hpp"
 
 if (!isserver) exitwith{false};
@@ -12,7 +12,7 @@ private _jump = true;
 
 if (_condcode isEqualType scriptnull) then
 {
-	if (!scriptDone _condcode) then // no jump if script NOT running
+	if (scriptDone _condcode) then // jump if other script is running
 	{
 		_jump = false;
 	};
@@ -21,34 +21,38 @@ else
 {
 	if (_condcode isEqualType objnull) then
 	{
-			_jump = alive _condcode; // no jump if dead
+		// no jump if dead
+		_jump = alive _condcode; 
 	}
 	else
 	{
 		if (_condcode isEqualType []) then
 		{
 			if (count _condcode  isEqualTo 2) then
-			{
-				_jump = (_condcode # 0) getVariable[(_condcode # 1), true]; // no jump if variable set to false
+			{	
+				// no jump if variable set to false
+				_jump = (_condcode # 0) getVariable[(_condcode # 1), true]; 
 			};
 		}
 		else
 		{
 			if (_condcode isEqualType false) then
 			{
-				_jump = !_condcode;// no jump if true
+				// no jump if true
+				_jump = !_condcode;
 			}
 			else
 			{
 				if (_condcode isEqualType "taskID") then
 				{
+					// jump if task exists and is running
 					if ([_condcode] call BIS_fnc_taskExists)then
 					{
 						_jump = !(_condcode call BIS_fnc_taskCompleted);
 					}
 					else
 					{
-						_jump = [_condcode] call BIS_fnc_taskExists;
+						_jump = false;
 					};
 				};
 			};

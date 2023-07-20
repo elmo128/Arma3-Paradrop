@@ -25,9 +25,7 @@
 #define PARACHUTETYPE_CARGO ["B_Parachute_02_F","O_Parachute_02_F","I_Parachute_02_F"]								// (list) no backpack, spawn as vehicle when outside, no animations for humans available
 
 #define NACK -1
-#define INVINCIBILITY_AFTER_JUMP 6;			// time in [s]
-#define GARBAGE_BIN "Land_PencilBlue_F"		// object for internal use. will be despawned with garbage
-#define GARBAGE_BIN_VAR_NAME "Junk11"			
+#define INVINCIBILITY_AFTER_JUMP 6;			// time in [s]			
 #define ENABLEDISTANCE_VTOL 1500			//enable VTOL before reaching drop locataion, helps AI to reduce speed [m] will be enabled again, after paradrop is completed
 
 // #define DEBUG

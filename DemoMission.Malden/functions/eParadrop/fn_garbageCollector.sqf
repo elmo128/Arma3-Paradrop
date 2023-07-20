@@ -8,33 +8,47 @@ if (!isserver) exitwith{};
 #endif // DEBUG
 
 private _Lgarbage = param[0,[]];
+private _hasJumped = param[1, false];
 
-if ((count _Lgarbage) != 0) then
+if ((count _Lgarbage) > 0) then
 {
 	{
-		if (typename _x isEqualto "SCRIPT") then
+		if (_x isequaltype scriptnull) then // script handle
 		{
 			if (!isNull _x) then
 			{
 				terminate _x;
 			};
 		};
-		if (typename _x isEqualto "OBJECT") then
+		if (_x isequaltype objnull) then // vehicle, soldier
 		{
-			if (_x isKindOf GARBAGE_BIN) then
+			if (_x isnotequalto vehicle _x)then
 			{
-				private _bin = _x getVariable[GARBAGE_BIN_VAR_NAME,[]];
-				_Lgarbage append _bin;
-				uisleep 0.01;
+				moveOut _x;
 			};
 			deleteVehicle _x;
 		};
-		if (typename _x isEqualto "ARRAY") then // waypoint
+		if (_x isequaltype []) then // waypoint
 		{
 			if ((count _x  isEqualTo 2) && (typename (_x select 0) isEqualto "GROUP") && (typename (_x select 1) isEqualto "SCALAR")) then
 			{
 				deleteWaypoint _x;
 			};
+		};
+		if ((_hasJumped isequalto false)&& { (_x isequaltype grpNull) })then // group
+		{
+			{
+				if (_x isnotequalto vehicle _x)then
+				{
+					moveOut _x;
+				};
+				deleteVehicle _x;
+			}foreach units _x;
+			if (isMultiplayer)then
+			{
+				_x setGroupOwner 2;
+			};
+			deleteGroup _x;
 		};
 	}foreach _Lgarbage;
 };
