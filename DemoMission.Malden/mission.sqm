@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=13;
+		nextID=16;
 	};
 	class MarkerIDProvider
 	{
@@ -16,9 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={7974.1738,54.637878,10126.738};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710671,0.70710683};
+		pos[]={8021.2827,361.04434,9992.5996};
+		dir[]={-0.37012243,-0.66871476,0.64484888};
+		up[]={-0.332885,0.74351901,0.57997161};
+		aside[]={0.867293,1.4901161e-008,0.49779817};
 	};
 };
 binarizationWanted=0;
@@ -26,9 +27,9 @@ sourceName="DemoMission";
 addons[]=
 {
 	"A3_Ui_F",
-	"A3_Characters_F",
 	"A3_Structures_F_Mil_Helipads",
-	"A3_Modules_F"
+	"A3_Modules_F",
+	"A3_Characters_F"
 };
 class AddonsMetaData
 {
@@ -44,22 +45,22 @@ class AddonsMetaData
 		};
 		class Item1
 		{
-			className="A3_Characters_F";
-			name="Arma 3 Alpha - Characters and Clothing";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
-		class Item2
-		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item3
+		class Item2
 		{
 			className="A3_Modules_F";
 			name="Arma 3 Alpha - Scripted Modules";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item3
+		{
+			className="A3_Characters_F";
+			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -173,36 +174,6 @@ class Mission
 		};
 		class Item4
 		{
-			dataType="Group";
-			side="West";
-			class Entities
-			{
-				items=1;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={7929.062,29.616291,10193.985};
-						angles[]={0,0.83781523,0};
-					};
-					side="West";
-					flags=7;
-					class Attributes
-					{
-						isPlayer=1;
-					};
-					id=5;
-					type="B_recon_M_F";
-				};
-			};
-			class Attributes
-			{
-			};
-			id=4;
-		};
-		class Item5
-		{
 			dataType="Object";
 			class PositionInfo
 			{
@@ -219,7 +190,7 @@ class Mission
 			type="Land_JumpTarget_F";
 			atlOffset=1.9073486e-006;
 		};
-		class Item6
+		class Item5
 		{
 			dataType="Marker";
 			position[]={7924.3462,29.629,10157.171};
@@ -229,19 +200,20 @@ class Mission
 			id=7;
 			atlOffset=0.00047302246;
 		};
-		class Item7
+		class Item6
 		{
 			dataType="Logic";
 			class PositionInfo
 			{
 				position[]={7968.2852,29.627455,10161.197};
 			};
+			name="initParadrop";
 			init="[destination1, ""ds1Spawn1"", ""ds1Dspawn1"", west, ""B_T_VTOL_01_infantry_F"", 0.5, 0.9, false,""B_Parachute"",0.15,150,0,-1] spawn ePara_fnc_Paradrop;[""destination2""] spawn ePara_fnc_Paradrop;";
 			id=9;
 			type="Logic";
 			atlOffset=-1.9073486e-006;
 		};
-		class Item8
+		class Item7
 		{
 			dataType="Object";
 			class PositionInfo
@@ -257,7 +229,7 @@ class Mission
 			id=10;
 			type="Land_JumpTarget_F";
 		};
-		class Item9
+		class Item8
 		{
 			dataType="Marker";
 			position[]={7922.1128,29.757,10267.517};
@@ -267,7 +239,7 @@ class Mission
 			id=11;
 			atlOffset=0.00027656555;
 		};
-		class Item10
+		class Item9
 		{
 			dataType="Marker";
 			position[]={7920.4531,29.754,10266.563};
@@ -275,6 +247,36 @@ class Mission
 			type="Empty";
 			id=12;
 			atlOffset=-5.531311e-005;
+		};
+		class Item10
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={7852.6191,30.936384,10227.02};
+						angles[]={0,1.6039218,-0};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						isPlayer=1;
+					};
+					id=5;
+					type="B_recon_M_F";
+				};
+			};
+			class Attributes
+			{
+			};
+			id=13;
 		};
 	};
 };

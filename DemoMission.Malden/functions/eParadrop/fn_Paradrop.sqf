@@ -35,34 +35,26 @@ if ((_destinationpos isequaltype false) || {(_finaldestination isequaltype false
 
 private _garbage = [];
 private _isVTOL = 0;
+private _hasJumped = false;
 
-if (!isNull _thisScript) then { _garbage pushback _thisScript };
+if ((!(isnil{ _thisScript }))&& { (!(isNull _thisScript)) }) then{ _garbage pushback _thisScript };
 // let's go
-
-// create garbage bin
-private _bin = objnull;
-if (!((tolower _parachutetype) in(PARACHUTTYPE_HUMAN_BACKPACK apply{ tolower _x }))) then
-{
-	_bin = createVehicle[GARBAGE_BIN, DEFAULT_LOC];
-	_bin allowdamage false;
-	if (isServer isequalto true) then
-	{
-		_bin hideObjectGlobal true;
-		_bin enableSimulationGlobal false;
-	}
-	else
-	{
-		_bin hideObject true;
-		_bin enableSimulation false;
-	};
-	_garbage pushback _bin;
-};
 
 //create dropship
 private _vehicle = [_vehiclespawncoordinates, _vehiclespawnbearing, _vehicletype, _dsSide] call BIS_fnc_spawnVehicle;
 private _dropship = _vehicle select 0;
 private _dropship_crew = _vehicle select 1;
 private _dropship_group = _vehicle select 2;
+
+if (isMultiplayer)then
+{
+	_dropship_group setGroupOwner clientOwner;
+	if (owner _dropship isnotequalto clientOwner)then
+	{
+		_dropship setOwner clientOwner;
+	};
+};
+
 _dropship limitSpeed 999;
 _dropship forceSpeed 998;
 _isVTOL = _dropship call ePara_fnc_VTOLGetCapabilities;
@@ -70,9 +62,7 @@ _dropship_group deleteGroupWhenEmpty true;
 _garbage pushback([_dropship, _dropship_group] spawn ePara_fnc_despawnPilots);
 
 _garbage pushback _dropship;
-{
-	_garbage pushback _x;
-}foreach units _dropship_group;
+_garbage pushback _dropship_group;
 
 _destinationpos set[2, ((getTerrainHeightASL _destinationpos) + _jumpheight)];
 
@@ -91,6 +81,12 @@ _WP2D set[2, 0];
 //create cargo
 private _cargoseatcnt = count(fullCrew[_dropship, "cargo", true]) + 2;
 private _cargogroup = [_vehiclespawncoordinates, _dsSide, _cargoseatcnt,[],[],[_skillmin, _skillmax]] call BIS_fnc_spawnGroup;
+
+if (isMultiplayer)then
+{
+	_cargogroup setGroupOwner clientOwner;
+};
+
 private _onboard = true;
 
 private _despawnCrewhandle = [_dropship] spawn ePara_fnc_despawnCrew;
@@ -101,9 +97,9 @@ _garbage pushback _despawnCrewhandle;
 	_x assignAsCargo _dropship;
 	[_x] allowgetin true;
 	[_x] orderGetIn true;
-	_x moveInCargo _dropship;
-	_garbage pushback _x;
+	[_x, _dropship] remoteExec["ePara_fnc_remMoveinCargo", _x];
 }foreach units _cargogroup;
+_garbage pushback _cargogroup;
 
 _cargogroup deleteGroupWhenEmpty true;
 
@@ -178,11 +174,12 @@ while {_onboard} do
 							unassignvehicle _x;
 							moveout _x;
 							_garbage pushback(_x spawn{ _this allowdamage false; sleep INVINCIBILITY_AFTER_JUMP; _this allowdamage true; });
-							_garbage pushback([_x, _forceParachute, _parachutetype, _bin] spawn ePara_fnc_ParachuteForceOpen);
+							_garbage pushback([_x, _forceParachute, _parachutetype] spawn ePara_fnc_ParachuteForceOpen);
 							if (_backpack isnotequalto "") then
 							{
 								_garbage pushback([_x, _backpack, _contents] spawn ePara_fnc_reattachBackpack);
 							};
+							_hasJumped = true;
 							sleep _jumpdistancetime;
 						};
 					}foreach(units _cargogroup);
@@ -212,10 +209,23 @@ private _fwp = _dropship_group addWaypoint[_finaldestination,0];
 _garbage pushback _fwp;
 _fwp setWaypointType "MOVE";
 _fwp setWaypointCompletionRadius 200;
+
 _fwp setWaypointStatements["true", "{ if ((objectParent _x) isnotequalto objNull) then{{deleteVehicle _x;}foreach crew objectParent _x;deleteVehicle(objectParent _x);};deleteVehicle _x;}foreach thislist;"];
 
-//handle return and garbage
+_dropship_group setCurrentWaypoint _fwp;
 
-[_cargogroup, _dropship, _garbage,(_nojump call ePara_fnc_canJump)] spawn ePara_fnc_garbagecollectorCaller;
+//handle return and garbage
+[_dropship, _garbage, _hasJumped] spawn
+{
+	private _dropship = param[0,objnull];
+	private _garbage = param[1, []];
+	private _hasJumped = param[2, false];
+	waituntil
+	{
+		sleep 5;
+		isnull _dropship;
+	};
+	[_garbage, _hasJumped] spawn ePara_fnc_garbageCollector;
+};
 
 [_cargogroup, _dropship, _dropship_group];

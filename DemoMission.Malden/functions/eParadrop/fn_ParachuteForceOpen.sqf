@@ -10,12 +10,12 @@ if (!isserver) exitwith{};
 private _unit = param[0, objNull];
 private _setting = param[1, NACK];
 private _paratype = param[2, DEFAULT_PARACHUTE];
-private _garbageobj = param[3, objnull,[objnull]];
 
-if (_setting  isEqualTo NACK) exitWith{};
+if (_setting isEqualTo NACK) exitWith{};
+
 if ((_setting >= 0) && (_setting <= 20)) then
 {
-	uisleep _setting;
+	sleep _setting;
 }
 else
 {
@@ -23,6 +23,7 @@ else
 	{
 		waituntil
 		{
+			sleep 1;
 			((getPosATL _unit) select 2) <= _setting;
 		};
 	};
@@ -35,6 +36,6 @@ if (alive _unit) then
 	}
 	else
 	{
-		[_unit, _paratype, _garbageobj] call ePara_fnc_ParachuteNoBackpack;
+		[_unit, _paratype] call ePara_fnc_ParachuteNoBackpack;
 	};
 };
