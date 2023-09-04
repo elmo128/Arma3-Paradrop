@@ -39,7 +39,6 @@ Instructions:
 NOTE: ePara_fnc_Paradrop requires suspending.
 NOTE: spawn it, if you don't need the return values.
 
-* NOTE : The higher the processing power, the more accurate the drop location and speed control.
 * MINIMUM WORKING: [destination] spawn ePara_fnc_Paradrop;
 * MINIMUM RECOMMENDED: [destination, dropshipSpawnlocation, dropshipDESpawnlocation] spawn ePara_fnc_Paradrop;
 * MAXIMUM PARAMETERS: [destination, dropshipSpawnlocation, dropshipDESpawnlocation, side, vehicleType, skillmin, skillmax, nojump, parachutetype, jumpdistancetime, jumpheight, jumpearly, _forceopenParachute] spawn ePara_fnc_Paradrop;
